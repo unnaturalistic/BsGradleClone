@@ -8,6 +8,7 @@ import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main {
@@ -25,6 +26,13 @@ public class Main {
             System.out.println("CAUSE: " + e.getCause());
             System.out.println("STACK TRACE: ");
             e.printStackTrace();
+            System.out.println("Creating file");
+            createToml();
+            try {
+                fos = new FileOutputStream(GetToml());
+            } catch (FileNotFoundException ex) {
+                System.out.println("Im not doing another loop fuck you");
+            }
         }
     }
 
@@ -53,5 +61,16 @@ public class Main {
     public static String GetToml() {
         GroupID = toml.getString("GroupID");
         return GroupID;
+    }
+
+    public static void createToml() {
+        File tomlobj = new File("./config.toml");
+        try {
+            if (tomlobj.createNewFile()) {
+                System.out.println("Created Toml");
+            }
+        } catch (IOException e) {
+            System.out.println("AUGH");
+        }
     }
 }
