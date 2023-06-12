@@ -43,11 +43,13 @@ public class Main {
         GetToml(1);
         System.out.println("Getting files");
         String[] files = getFiles();
-        System.out.println("Compiling");
-        javac.run(null, fos, null, files);
-        System.out.println("Done");
         if (Objects.equals(args[0], "runa")) {
             runProcess("java " + directoryPathy + mainclass);
+        }
+        if (Objects.equals(args[0], "Compile")) {
+            System.out.println("Compiling");
+            javac.run(null, fos, null, files);
+            System.out.println("Done");
         }
     }
 
