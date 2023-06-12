@@ -14,7 +14,16 @@ public class Main {
     public static String GroupID = "gnawmon";
     static FileOutputStream fos;
     static File tomlfile = new File("./config.toml");
-    static Toml toml = new Toml().read(tomlfile);
+    static Toml toml;
+
+    static {
+        try {
+            Toml toml = new Toml().read(tomlfile);
+        } catch (RuntimeException e) {
+            System.out.println("Cannot find toml");
+            createToml();
+        }
+    }
 
     static {
         try {
@@ -31,53 +40,61 @@ public class Main {
             } catch (FileNotFoundException ex) {
                 System.out.println("Im not doing another loop fuck you");
             }
+        } catch (NullPointerException e) {
+            System.out.println("Why");
         }
     }
 
     static Tool javac = ToolProvider.getSystemJavaCompiler();
 
     public static void main(String @NotNull [] args) throws Exception {
-        if (args != null) {
-            taskmanager(args);
-        }
+        taskmanager(args);
     }
 
     public static void taskmanager(String[] argsy) throws Exception {
-        File directoryPathy = new File(GetToml(1));
-        String mainclass = GetToml(2);
-        System.out.println("Configuring toml");
-        GetToml(1);
-        System.out.println("Getting files");
-        String[] files = getFiles();
-        //\/ tasks \/
-        if (Objects.equals(argsy[0], "runa")) {
-            runProcess("java " + directoryPathy + mainclass);
-        }
-        if (Objects.equals(argsy[0], "Compile")) {
-            System.out.println("Compiling");
-            javac.run(null, fos, null, files);
-            System.out.println("Done");
+        try {
+            File directoryPathy = new File(GetToml(1));
+            String mainclass = GetToml(2);
+            System.out.println("Configuring toml");
+            GetToml(1);
+            System.out.println("Getting files");
+            String[] files = getFiles();
+            //\/ tasks \/
+            if (Objects.equals(argsy[0], "runa")) {
+                runProcess("java " + directoryPathy + mainclass);
+            } else if (Objects.equals(argsy[0], "Compile")) {
+                System.out.println("Compiling");
+                javac.run(null, fos, null, files);
+                System.out.println("Done");
+            }
+        } catch (NullPointerException e) {
+            System.out.println("Why");
         }
     }
 
     public static String[] getFiles() {
         //Creating a File object for directory
-        File directoryPath = new File(GetToml(1));
+        File directoryPath = new File(Objects.requireNonNull(GetToml(1)));
         //List of all files and directories
         return directoryPath.list();
     }
 
     public static String GetToml(int a) {
-        GroupID = toml.getString("GroupID");
-        mainclass = toml.getString("mainclass");
-        if (a == 1) {
-            return GroupID;
-        } else if (a == 2) {
-            return mainclass;
-        } else {
-            System.out.println("Invalid toml mode");
+        try {
+            GroupID = toml.getString("GroupID");
+            mainclass = toml.getString("mainclass");
+            if (a == 1) {
+                return GroupID;
+            } else if (a == 2) {
+                return mainclass;
+            } else {
+                System.out.println("Invalid toml mode");
+            }
+            return null;
+        } catch (NullPointerException e) {
+            System.out.println("Toml Not Found!");
+            return null;
         }
-        return null;
     }
 
     public static void createToml() {
