@@ -5,22 +5,20 @@ import com.moandjiezana.toml.Toml;
 
 import javax.tools.Tool;
 import javax.tools.ToolProvider;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 
 public class Main {
     //\/default value\/
-    public static String GroupID = "./build/net/test";
+    public static String mainclass;
+    public static String GroupID = "gnawmon";
     static FileOutputStream fos;
     static File tomlfile = new File("./config.toml");
     static Toml toml = new Toml().read(tomlfile);
 
     static {
         try {
-            fos = new FileOutputStream(GetToml());
+            fos = new FileOutputStream(GetToml(1));
         } catch (FileNotFoundException e) {
             System.out.println("AN ERROR OCCURRED WHILE TRYING TO READ TOML FILE");
             System.out.println("CAUSE: " + e.getCause());
@@ -29,7 +27,7 @@ public class Main {
             System.out.println("Creating file");
             createToml();
             try {
-                fos = new FileOutputStream(GetToml());
+                fos = new FileOutputStream(GetToml(1));
             } catch (FileNotFoundException ex) {
                 System.out.println("Im not doing another loop fuck you");
             }
@@ -38,29 +36,39 @@ public class Main {
 
     static Tool javac = ToolProvider.getSystemJavaCompiler();
 
-    public static void main(String @NotNull [] args)  {
+    public static void main(String @NotNull [] args) throws Exception {
+        File directoryPathy = new File(GetToml(1));
+        String mainclass = GetToml(2);
         System.out.println("Configuring toml");
-        GetToml();
+        GetToml(1);
         System.out.println("Getting files");
         String[] files = getFiles();
         System.out.println("Compiling");
         javac.run(null, fos, null, files);
         System.out.println("Done");
         if (Objects.equals(args[0], "runa")) {
-            System.out.println("Run after not implemented");
+            runProcess("java " + directoryPathy + mainclass);
         }
     }
 
     public static String[] getFiles() {
         //Creating a File object for directory
-        File directoryPath = new File(GetToml());
+        File directoryPath = new File(GetToml(1));
         //List of all files and directories
         return directoryPath.list();
     }
 
-    public static String GetToml() {
+    public static String GetToml(int a) {
         GroupID = toml.getString("GroupID");
-        return GroupID;
+        mainclass = toml.getString("mainclass");
+        if (a == 1) {
+            return GroupID;
+        } else if (a == 2) {
+            return mainclass;
+        } else {
+            System.out.println("Invalid toml mode");
+        }
+        return null;
     }
 
     public static void createToml() {
@@ -73,4 +81,23 @@ public class Main {
             System.out.println("AUGH");
         }
     }
+
+    private static void printLines(String cmd, InputStream ins) throws Exception {
+        String line = null;
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(ins));
+        while ((line = in.readLine()) != null) {
+            System.out.println(cmd + " " + line);
+        }
+    }
+
+
+    private static void runProcess(String command) throws Exception {
+        Process pro = Runtime.getRuntime().exec(command);
+        printLines(command + " stdout:", pro.getInputStream());
+        printLines(command + " stderr:", pro.getErrorStream());
+        pro.waitFor();
+        System.out.println(command + " exitValue() " + pro.exitValue());
+    }
+
 }
