@@ -37,16 +37,23 @@ public class Main {
     static Tool javac = ToolProvider.getSystemJavaCompiler();
 
     public static void main(String @NotNull [] args) throws Exception {
+        if (args != null) {
+            taskmanager(args);
+        }
+    }
+
+    public static void taskmanager(String[] argsy) throws Exception {
         File directoryPathy = new File(GetToml(1));
         String mainclass = GetToml(2);
         System.out.println("Configuring toml");
         GetToml(1);
         System.out.println("Getting files");
         String[] files = getFiles();
-        if (Objects.equals(args[0], "runa")) {
+        //\/ tasks \/
+        if (Objects.equals(argsy[0], "runa")) {
             runProcess("java " + directoryPathy + mainclass);
         }
-        if (Objects.equals(args[0], "Compile")) {
+        if (Objects.equals(argsy[0], "Compile")) {
             System.out.println("Compiling");
             javac.run(null, fos, null, files);
             System.out.println("Done");
