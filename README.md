@@ -1,2 +1,2 @@
 # BsGradleClone
-A bs gradle clone as an experiment
+A bs Gradle Clone for the idontknowmyheadhurtsits3am era
