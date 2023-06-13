@@ -6,6 +6,11 @@ import com.moandjiezana.toml.Toml;
 import javax.tools.Tool;
 import javax.tools.ToolProvider;
 import java.io.*;
+//useful later
+//im too lazy to retype 3 lines
+//import java.net.URI;
+//import java.nio.file.Files;
+//import java.nio.file.Path;
 import java.util.Objects;
 
 public class Main {
@@ -15,6 +20,7 @@ public class Main {
     static FileOutputStream fos;
     static File tomlfile = new File("./config.toml");
     static Toml toml;
+    public static GroupID GID = new GroupID();
 
     static {
         try {
@@ -44,6 +50,8 @@ public class Main {
             System.out.println("Why");
         }
     }
+
+    
 
     static Tool javac = ToolProvider.getSystemJavaCompiler();
 
@@ -81,8 +89,10 @@ public class Main {
 
     public static String GetToml(int a) {
         try {
-            GroupID = toml.getString("GroupID");
-            mainclass = toml.getString("mainclass");
+            GID.mainclass = toml.getString("mainclass");
+            GID.net = toml.getString("net", "net");
+            GID.name = toml.getString("name", "example");
+            GID.projectname = toml.getString("projectname", "app");
             if (a == 1) {
                 return GroupID;
             } else if (a == 2) {
@@ -105,6 +115,13 @@ public class Main {
             }
         } catch (IOException e) {
             System.out.println("AUGH");
+        }
+    }
+
+    public static void createGroupID() {
+        boolean groupobj = new File(GroupID).mkdirs();
+        if (groupobj) {
+            System.out.println("GroupID created");
         }
     }
 
