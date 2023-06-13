@@ -6,6 +6,7 @@ import com.moandjiezana.toml.Toml;
 import javax.tools.Tool;
 import javax.tools.ToolProvider;
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 //useful later
 //im too lazy to retype 3 lines
 //import java.net.URI;
@@ -56,6 +57,7 @@ public class Main {
     static Tool javac = ToolProvider.getSystemJavaCompiler();
 
     public static void main(String @NotNull [] args) throws Exception {
+        createGroupID();
         taskmanager(args);
     }
 
@@ -108,11 +110,13 @@ public class Main {
     }
 
     public static void createToml() {
-        File tomlobj = new File("./config.toml");
         try {
+            File tomlobj = new File("./config.toml");
             if (tomlobj.createNewFile()) {
                 System.out.println("Created Toml");
             }
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("Group ID already exists");
         } catch (IOException e) {
             System.out.println("AUGH");
         }
