@@ -13,6 +13,8 @@ import java.nio.file.FileAlreadyExistsException;
 //import java.nio.file.Files;
 //import java.nio.file.Path;
 import java.util.Objects;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
 public class Main {
     //\/default value\/
@@ -22,6 +24,8 @@ public class Main {
     static File tomlfile = new File("./config.toml");
     static Toml toml;
     public static Config GID = new Config();
+    public static LocalTime TIMEOBJ = LocalTime.now();
+    public static LocalDate DATEOBJ = LocalDate.now();
 
     static {
         try {
@@ -120,6 +124,10 @@ public class Main {
         } catch (IOException e) {
             System.out.println("AUGH");
         }
+    }
+
+    public static void LOG(String log, String mode) {
+        System.out.println(DATEOBJ + "@" + TIMEOBJ + " [" + mode + "]" + " : " + log);
     }
 
     public static void createGroupID() throws FileAlreadyExistsException {
