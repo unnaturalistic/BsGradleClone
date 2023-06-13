@@ -79,9 +79,11 @@ public class Main {
             String[] files = getFiles();
             System.out.println("Compiling build script");
             javac.run(null, fosy, null, "./build.java");
+            runProcess("java ./build");
             //\/ tasks \/
             if (Objects.equals(argsy[0], "runa")) {
                 //runProcess("java " + directoryPathy + mainclass);
+                throw new RuntimeException();
             } else if (Objects.equals(argsy[0], "Compile")) {
                 System.out.println("Compiling");
                 javac.run(null, fos, null, files);
