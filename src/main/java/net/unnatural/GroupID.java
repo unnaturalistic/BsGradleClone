@@ -8,4 +8,5 @@ class GroupID {
     public static String projectname;
     public static String mainclass;
     public static ArrayList<String> Tasks = new ArrayList<String>();
+    public static String ArtifactID;
 }
