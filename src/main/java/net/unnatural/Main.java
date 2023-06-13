@@ -116,13 +116,13 @@ public class Main {
                 System.out.println("Created Toml");
             }
         } catch (FileAlreadyExistsException e) {
-            System.out.println("Group ID already exists");
+            System.out.println("Toml already exists");
         } catch (IOException e) {
             System.out.println("AUGH");
         }
     }
 
-    public static void createGroupID() {
+    public static void createGroupID() throws FileAlreadyExistsException {
         boolean groupobj = new File(GroupID).mkdirs();
         if (groupobj) {
             System.out.println("GroupID created");
