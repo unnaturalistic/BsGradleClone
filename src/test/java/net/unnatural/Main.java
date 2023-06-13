@@ -19,6 +19,7 @@ public class Main {
     public static String mainclass;
     public static String GroupID = "gnawmon";
     static FileOutputStream fos;
+    static FileOutputStream fosy;
     static File tomlfile = new File("./config.toml");
     static Toml toml;
     public static GroupID GID = new GroupID();
@@ -52,6 +53,13 @@ public class Main {
         }
     }
 
+    static {
+        try {
+            fos = new FileOutputStream("./");
+        } catch (FileNotFoundException e) {
+            System.out.println("what");
+        }
+    }
     
 
     static Tool javac = ToolProvider.getSystemJavaCompiler();
@@ -69,9 +77,11 @@ public class Main {
             GetToml(1);
             System.out.println("Getting files");
             String[] files = getFiles();
+            System.out.println("Compiling build script");
+            javac.run(null, fosy, null, "./build.java");
             //\/ tasks \/
             if (Objects.equals(argsy[0], "runa")) {
-                runProcess("java " + directoryPathy + mainclass);
+                //runProcess("java " + directoryPathy + mainclass);
             } else if (Objects.equals(argsy[0], "Compile")) {
                 System.out.println("Compiling");
                 javac.run(null, fos, null, files);
