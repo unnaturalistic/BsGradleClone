@@ -19,10 +19,9 @@ public class Main {
     public static String mainclass;
     public static String GroupID = "gnawmon";
     static FileOutputStream fos;
-    static FileOutputStream fosy;
     static File tomlfile = new File("./config.toml");
     static Toml toml;
-    public static GroupID GID = new GroupID();
+    public static Config GID = new Config();
 
     static {
         try {
@@ -53,13 +52,6 @@ public class Main {
         }
     }
 
-    static {
-        try {
-            fos = new FileOutputStream("./");
-        } catch (FileNotFoundException e) {
-            System.out.println("what");
-        }
-    }
     
 
     static Tool javac = ToolProvider.getSystemJavaCompiler();
@@ -77,13 +69,9 @@ public class Main {
             GetToml(1);
             System.out.println("Getting files");
             String[] files = getFiles();
-            System.out.println("Compiling build script");
-            javac.run(null, fosy, null, "./build.java");
-            runProcess("java ./build");
             //\/ tasks \/
             if (Objects.equals(argsy[0], "runa")) {
-                //runProcess("java " + directoryPathy + mainclass);
-                throw new RuntimeException();
+                runProcess("java " + directoryPathy + mainclass);
             } else if (Objects.equals(argsy[0], "Compile")) {
                 System.out.println("Compiling");
                 javac.run(null, fos, null, files);
@@ -103,10 +91,10 @@ public class Main {
 
     public static String GetToml(int a) {
         try {
-            GID.mainclass = toml.getString("mainclass");
-            GID.net = toml.getString("net", "net");
-            GID.name = toml.getString("name", "example");
-            GID.projectname = toml.getString("projectname", "app");
+            Config.mainclass = toml.getString("mainclass");
+            Config.net = toml.getString("net", "net");
+            Config.name = toml.getString("name", "example");
+            Config.projectname = toml.getString("projectname", "app");
             if (a == 1) {
                 return GroupID;
             } else if (a == 2) {

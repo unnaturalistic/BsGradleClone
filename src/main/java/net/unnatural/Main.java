@@ -21,7 +21,7 @@ public class Main {
     static FileOutputStream fos;
     static File tomlfile = new File("./config.toml");
     static Toml toml;
-    public static GroupID GID = new GroupID();
+    public static Config GID = new Config();
 
     static {
         try {
@@ -91,10 +91,10 @@ public class Main {
 
     public static String GetToml(int a) {
         try {
-            GID.mainclass = toml.getString("mainclass");
-            GID.net = toml.getString("net", "net");
-            GID.name = toml.getString("name", "example");
-            GID.projectname = toml.getString("projectname", "app");
+            Config.mainclass = toml.getString("mainclass");
+            Config.net = toml.getString("net", "net");
+            Config.name = toml.getString("name", "example");
+            Config.projectname = toml.getString("projectname", "app");
             if (a == 1) {
                 return GroupID;
             } else if (a == 2) {
