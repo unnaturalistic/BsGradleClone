@@ -1,9 +1,18 @@
 plugins {
     id 'java'
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = 'net.unnatural'
 version = '2.1'
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'net.unnatural.Main'
+        )
+    }
+}
 
 repositories {
     mavenCentral()
