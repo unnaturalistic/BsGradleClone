@@ -45,12 +45,6 @@ System.out.println("\u001B[37mWhite text");
              Map<?, ?> map = gson.fromJson(reader, Map.class);
              for (Map.Entry<?, ?> entry : map.entrySet()) {
                  System.out.println(entry.getKey() + "=" + entry.getValue());
-                 /*
-                     public static String net;
-                     public static String name;
-                     public static String projectname;
-                     public static String projectnameingroupid;
-                  */
                  if (entry.getKey() == "net") {
                      Config.net = (String) entry.getValue();
                  } else if (entry.getKey() == "name") {
@@ -73,8 +67,8 @@ System.out.println("\u001B[37mWhite text");
          try {
              System.out.println("Getting JSON Task Data");
              Gson gson = new Gson();
-             Reader reader = Files.newBufferedReader(Paths.get("config.json"));
-             System.out.println("config file: " + Paths.get("config.json"));
+             Reader reader = Files.newBufferedReader(Paths.get("script.json"));
+             System.out.println("config file: " + Paths.get("script.json"));
              Map<?, ?> map = gson.fromJson(reader, Map.class);
              for (Map.Entry<?, ?> entry : map.entrySet()) {
                  if (entry.getKey() == taskname) {
