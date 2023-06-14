@@ -67,8 +67,8 @@ public class Main {
         try {
             System.out.println("Getting JSON Task Data");
             Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("config.json"));
-            System.out.println("config file: " + Paths.get("config.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("script.json"));
+            System.out.println("config file: " + Paths.get("script.json"));
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 if (entry.getKey() == taskname) {
