@@ -45,12 +45,6 @@ public class Main {
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 System.out.println(entry.getKey() + "=" + entry.getValue());
-                /*
-                    public static String net;
-                    public static String name;
-                    public static String projectname;
-                    public static String projectnameingroupid;
-                 */
                 if (entry.getKey() == "net") {
                     Config.net = (String) entry.getValue();
                 } else if (entry.getKey() == "name") {
@@ -60,12 +54,31 @@ public class Main {
                 } else if (entry.getKey() == "projectnameingroupid") {
                     Config.projectnameingroupid = (String) entry.getValue();
                 } else {
-                    COLOREDLOG("CONFIG IS INVALID!", "red");
+                    runtask((String) entry.getKey());
                 }
             }
             reader.close();      
         } catch (NullPointerException | IOException e) {
             COLOREDLOG("CONFIG DOES NOT EXIST, USING DEFAULT!", "red");
+        }
+    }
+
+    public static void runtask(String taskname) {
+        try {
+            System.out.println("Getting JSON Task Data");
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get("config.json"));
+            System.out.println("config file: " + Paths.get("config.json"));
+            Map<?, ?> map = gson.fromJson(reader, Map.class);
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                if (entry.getKey() == taskname) {
+                    runcmd((String) entry.getValue());
+                    break;
+                }
+            }
+            reader.close();      
+        } catch (NullPointerException | IOException e) {
+            COLOREDLOG("CONFIG DOES NOT EXIST!", "red");
         }
     }
 
