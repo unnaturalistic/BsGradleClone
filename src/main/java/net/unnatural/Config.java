@@ -1,9 +1,9 @@
 package net.unnatural;
 
 public class Config {
-    public static String net;
-    public static String name;
-    public static String projectname;
+    public static String net = "net";
+    public static String name = "example";
+    public static String projectname = "app";
     public static String projectnameingroupid;
 
     public static void SetConfig(String net, String name, String projectname, String projectnameingroupid) {

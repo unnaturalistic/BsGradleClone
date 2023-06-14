@@ -1,3 +1,14 @@
+/*
+ NOTES:
+System.out.println("\u001B[31mRed text");
+System.out.println("\u001B[32mGreen text");
+System.out.println("\u001B[33mYellow text");
+System.out.println("\u001B[34mBlue text");
+System.out.println("\u001B[35mPurple text");
+System.out.println("\u001B[36mCyan text");
+System.out.println("\u001B[37mWhite text");
+ */
+
 package net.unnatural;
 
 import java.io.BufferedReader;
@@ -14,9 +25,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Starting BULLSHIT GRADLE CLONE!");
         getjsondata();
+        creategroupID();
         System.out.println("Checking for commands");
-        if (args[0] == "compile") {
+        System.out.println(args.length);
+        System.out.println(args[0]);
+        if (args[0].equals("compile")) {
             compile("main.java");
+        } else if (args[0].equals("run")) {
+            run("main");
         }
     }
 
@@ -44,13 +60,12 @@ public class Main {
                 } else if (entry.getKey() == "projectnameingroupid") {
                     Config.projectnameingroupid = (String) entry.getValue();
                 } else {
-                    System.out.println("\u001B[31mFAILED TO SET CONFIGURATION!");
+                    COLOREDLOG("CONFIG IS INVALID!", "red");
                 }
             }
             reader.close();      
-        } catch (Exception ex) {
-            System.out.println("\u001B[31mFAILED TO GET JSON DATA!");
-            ex.printStackTrace();
+        } catch (NullPointerException | IOException e) {
+            COLOREDLOG("CONFIG DOES NOT EXIST, USING DEFAULT!", "red");
         }
     }
 
@@ -66,12 +81,77 @@ public class Main {
             String line;
             while (true) {
                 line = r.readLine();
-                if (line == null) { break; }
+                if (line == null) {
+                    break;
+                }
                 System.out.println(line);
             }
+            COLOREDLOG("Done", "green");
         } catch (IOException e ){
-            System.out.println("\u001B[31mFAILED");
+            COLOREDLOG("FAILED", "red");
             e.printStackTrace();
         }
+    }
+
+    public static void run(String file) {
+        try {
+            ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/C", "java " + Paths.get(file)
+                );
+            builder.redirectErrorStream(true);
+            Process p;
+            p = builder.start();
+            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while (true) {
+                line = r.readLine();
+                if (line != null) {
+                    System.out.println(line);
+                } else {
+                    COLOREDLOG("Done", "green");
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void COLOREDLOG(String log, String color) {
+        if (color == "red") {
+            System.out.println("\u001B[31m" + log + "\u001B[37m");
+        } else if (color == "blue") {
+            System.out.println("\u001B[34m" + log + "\u001B[37m");
+        } else if (color == "green") {
+            System.out.println("\u001B[32m" + log + "\u001B[37m");
+        }
+    }
+
+    public static void runcmd(String cmd) {
+        try {
+            ProcessBuilder builder = new ProcessBuilder(
+                "cmd.exe", "/C", cmd
+                );
+            builder.redirectErrorStream(true);
+            Process p;
+            p = builder.start();
+            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String line;
+            while (true) {
+                line = r.readLine();
+                if (line != null) {
+                    System.out.println(line);
+                } else {
+                    COLOREDLOG("Done", "green");
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void creategroupID() {
+        runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
     }
 }
