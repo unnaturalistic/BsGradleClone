@@ -86,7 +86,7 @@ public class Main {
         try {
             System.out.println("Trying to compile");
             ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "javac " + Paths.get(file));
+                "cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
             builder.redirectErrorStream(true);
             Process p;
             p = builder.start();
@@ -166,5 +166,9 @@ public class Main {
 
     public static void creategroupID() {
         runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
+    }
+
+    public static void movetogroupID() {
+        runcmd("cd " + Config.net + " && cd " + Config.name + " && cd ");
     }
 }
