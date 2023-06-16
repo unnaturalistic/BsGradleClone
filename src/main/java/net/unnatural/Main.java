@@ -45,13 +45,13 @@ public class Main {
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 System.out.println(entry.getKey() + "=" + entry.getValue());
-                if (entry.getKey() == "net") {
+                if (entry.getKey().equals("net")) {
                     Config.net = (String) entry.getValue();
-                } else if (entry.getKey() == "name") {
+                } else if (entry.getKey().equals("name")) {
                     Config.name = (String) entry.getValue();
-                } else if (entry.getKey() == "projectname") {
+                } else if (entry.getKey().equals("projectname")) {
                     Config.projectname = (String) entry.getValue();
-                } else if (entry.getKey() == "projectnameingroupid") {
+                } else if (entry.getKey().equals("projectnameingroupid")) {
                     Config.projectnameingroupid = (String) entry.getValue();
                 } else {
                     runtask((String) entry.getKey());
