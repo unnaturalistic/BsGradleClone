@@ -23,16 +23,21 @@ import com.google.gson.*;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+        int lengthargs = args.length;
         System.out.println("Starting BULLSHIT GRADLE CLONE!");
         getjsondata();
         creategroupID();
         System.out.println("Checking for commands");
-        System.out.println(args.length);
-        System.out.println(args[0]);
         if (args[0].equals("compile")) {
-            compile("main.java");
-        } else if (args[0].equals("run")) {
-            run("main");
+                compile("main.java");
+            } else if (args[0].equals("run")) {
+                run("main");
+            } else {
+                COLOREDLOG("Invalid command", "red");
+        }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
         }
     }
 
@@ -78,7 +83,7 @@ public class Main {
             }
             reader.close();      
         } catch (NullPointerException | IOException e) {
-            COLOREDLOG("CONFIG DOES NOT EXIST!", "red");
+            COLOREDLOG("TASK FILE DOES NOT EXIST!", "red");
         }
     }
 

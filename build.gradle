@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'net.unnatural'
-version = '0.2'
+version = '0.2-SNAPSHIT'
 
 jar {
     manifest {
