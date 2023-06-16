@@ -1,3 +1,4 @@
+@echo off
 @rem
 @rem Copyright 2015 the original author or authors.
 @rem
@@ -13,6 +14,8 @@
 @rem See the License for the specific language governing permissions and
 @rem limitations under the License.
 @rem
+
+if %1 == HASH goto HASH
 
 @if "%DEBUG%"=="" @echo off
 @rem ##########################################################################
@@ -90,3 +93,9 @@ exit /b %EXIT_CODE%
 if "%OS%"=="Windows_NT" endlocal
 
 :omega
+
+
+:HASH
+CertUtil -hashfile .\build\libs\BsGradleClone-all.jar MD5
+CertUtil -hashfile .\build\libs\BsGradleClone-all.jar SHA1
+exit /b
