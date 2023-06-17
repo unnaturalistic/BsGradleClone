@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
@@ -27,8 +28,7 @@ import com.google.gson.*;
 public class Main {
     public static void main(String[] args) {
         try {
-        int lengthargs = args.length;
-        System.out.println("Starting BULLSHIT GRADLE CLONE!");
+            System.out.println("Starting BULLSHIT GRADLE CLONE!");
         getjsondata();
         creategroupID();
         System.out.println("Checking for commands");
@@ -45,11 +45,22 @@ public class Main {
     }
 
     public static void getjsondata() {
+        /*
+        the json file should look like this:
+        {
+        "net": "net",
+        "name": "example",
+        "projectname": "projectname",
+        "projectnameingroupid": "projectnameingroupid"
+         }
+         projectnameingroupid is pretty broken rn so dont even use it
+         */
         try {
             System.out.println("Getting JSON Data");
             Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("config.json"));
-            System.out.println("config file: " + Paths.get("config.json"));
+            Path path = Paths.get("config.json");
+            Reader reader = Files.newBufferedReader(path);
+            System.out.println("config file: " + path);
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 System.out.println(entry.getKey() + "=" + entry.getValue());
@@ -75,8 +86,9 @@ public class Main {
         try {
             System.out.println("Getting JSON Task Data");
             Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("script.json"));
-            System.out.println("config file: " + Paths.get("script.json"));
+            Path path = Paths.get("script.json");
+            Reader reader = Files.newBufferedReader(path);
+            System.out.println("config file: " + path);
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 if (entry.getKey() == taskname) {
@@ -139,12 +151,16 @@ public class Main {
     }
 
     public static void COLOREDLOG(String log, String color) {
-        if (color == "red") {
-            System.out.println("\u001B[31m" + log + "\u001B[37m");
-        } else if (color == "blue") {
-            System.out.println("\u001B[34m" + log + "\u001B[37m");
-        } else if (color == "green") {
-            System.out.println("\u001B[32m" + log + "\u001B[37m");
+        switch (color) {
+            case "red":
+                System.out.println("\u001B[31m" + log + "\u001B[37m");
+                break;
+            case "blue":
+                System.out.println("\u001B[34m" + log + "\u001B[37m");
+                break;
+            case "green":
+                System.out.println("\u001B[32m" + log + "\u001B[37m");
+                break;
         }
     }
 
@@ -176,7 +192,4 @@ public class Main {
         runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
     }
 
-    public static void movetogroupID() {
-        runcmd("cd " + Config.net + " && cd " + Config.name + " && cd ");
-    }
 }

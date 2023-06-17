@@ -1,4 +1,6 @@
 {
-    "test1": "test?",
-    "test2": "test!"
+    "net": "net",
+    "name": "example",
+    "projectname": "projectname",
+    "projectnameingroupid": "projectnameingroupid"
 }
