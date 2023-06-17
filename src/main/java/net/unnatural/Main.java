@@ -22,23 +22,33 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.net.*;
+import java.io.*;
+
 
 import com.google.gson.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static int[] version = new int[] {0 , 2};
+    public static void main(String[] args) throws IOException, NullPointerException {
         try {
             System.out.println("Starting BULLSHIT GRADLE CLONE!");
-        getjsondata();
-        creategroupID();
-        System.out.println("Checking for commands");
-        if (args[0].equals("compile")) {
-                compile("main.java");
+            boolean update = checkforupdate();
+            if (update) {
+                System.out.println("Update available");
+            } else {
+                System.out.println("Running latest!");
+            }
+            getjsondata();
+            creategroupID();
+            System.out.println("Checking for commands");
+            if (args[0].equals("compile")) {
+                    compile("main.java");
             } else if (args[0].equals("run")) {
                 run("main");
             } else {
                 COLOREDLOG("Invalid command", "red");
-        }
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
         }
@@ -63,7 +73,6 @@ public class Main {
             System.out.println("config file: " + path);
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + "=" + entry.getValue());
                 if (entry.getKey().equals("net")) {
                     Config.net = (String) entry.getValue();
                 } else if (entry.getKey().equals("name")) {
@@ -192,4 +201,21 @@ public class Main {
         runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
     }
 
+    public static String getversion() {
+        String ver = String.valueOf(version[0] + "" + version[1]);
+        return ver;
+    }
+
+    public static boolean checkforupdate() throws IOException, NullPointerException {
+        URL url = new URL("https://raw.githubusercontent.com/unnaturalistic/BsGradleClone/main/version.txt");
+        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+        String i;
+        i = read.readLine();
+        read.close();
+        if (!i.equals(getversion())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
