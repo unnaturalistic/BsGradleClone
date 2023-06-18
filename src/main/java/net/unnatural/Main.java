@@ -29,6 +29,7 @@ import com.google.gson.*;
 
 public class Main {
     public static int[] version = new int[] {0 , 2};
+
     public static void main(String[] args) throws IOException, NullPointerException {
         try {
             System.out.println("Starting BULLSHIT GRADLE CLONE!");
@@ -42,9 +43,9 @@ public class Main {
             creategroupID();
             System.out.println("Checking for commands");
             if (args[0].equals("compile")) {
-                    compile("main.java");
+                    compile(Config.MainClassfile);
             } else if (args[0].equals("run")) {
-                run("main");
+                run(Config.MainClass);
             } else {
                 COLOREDLOG("Invalid command", "red");
             }
@@ -80,8 +81,13 @@ public class Main {
                     Config.projectname = (String) entry.getValue();
                 } else if (entry.getKey().equals("projectnameingroupid")) {
                     Config.projectnameingroupid = (String) entry.getValue();
+                } else if (entry.getKey().equals("MainClass")) {
+                    Config.MainClass = (String) entry.getValue();
+                    Config.MainClassfile = Config.MainClass + ".java";
                 } else if (entry.getKey().equals("deftask")){
                     runtask((String) entry.getKey());
+                } else {
+                    //🤷‍♀️
                 }
             }
             reader.close();      
@@ -96,7 +102,7 @@ public class Main {
             Gson gson = new Gson();
             Path path = Paths.get("script.json");
             Reader reader = Files.newBufferedReader(path);
-            System.out.println("config file: " + path);
+            System.out.println("script config file: " + path);
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 if (entry.getKey() == taskname) {
