@@ -23,7 +23,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.net.*;
-import java.io.*;
 
 
 import com.google.gson.*;
@@ -81,7 +80,7 @@ public class Main {
                     Config.projectname = (String) entry.getValue();
                 } else if (entry.getKey().equals("projectnameingroupid")) {
                     Config.projectnameingroupid = (String) entry.getValue();
-                } else {
+                } else if (entry.getKey().equals("deftask")){
                     runtask((String) entry.getKey());
                 }
             }
