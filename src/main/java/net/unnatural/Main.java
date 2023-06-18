@@ -42,12 +42,17 @@ public class Main {
             getjsondata();
             creategroupID();
             System.out.println("Checking for commands");
+            //here's how tasks work
+            //every main call a certain task will get executed which is defined in the
+            //deftask value in the json
+            //if the cli arguments are not integrated in the code base
+            //it will call the script.json reader to execute the one which is named the same as the cli argument
             if (args[0].equals("compile")) {
                     compile(Config.MainClassfile);
             } else if (args[0].equals("run")) {
                 run(Config.MainClass);
             } else {
-                COLOREDLOG("Invalid command", "red");
+                runtask(args[0]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
@@ -105,7 +110,7 @@ public class Main {
             System.out.println("script config file: " + path);
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             for (Map.Entry<?, ?> entry : map.entrySet()) {
-                if (entry.getKey() == taskname) {
+                if (entry.getKey().equals(taskname)) {
                     runcmd((String) entry.getValue());
                     break;
                 }
