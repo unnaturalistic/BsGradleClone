@@ -124,21 +124,39 @@ public class Main {
     public static void compile(String file) {
         try {
             System.out.println("Trying to compile");
-            ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
-            builder.redirectErrorStream(true);
-            Process p;
-            p = builder.start();
-            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while (true) {
-                line = r.readLine();
-                if (line == null) {
-                    break;
+            if (Config.projectnameingroupid != null) {
+                ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + Config.projectnameingroupid + "/" + file);
+
+                builder.redirectErrorStream(true);
+                Process p;
+                p = builder.start();
+                BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line;
+                while (true) {
+                    line = r.readLine();
+                    if (line == null) {
+                        break;
+                    }
+                    System.out.println(line);
                 }
-                System.out.println(line);
+                COLOREDLOG("Done", "green");
+            } else {
+                ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
+
+                builder.redirectErrorStream(true);
+                Process p;
+                p = builder.start();
+                BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                String line;
+                while (true) {
+                    line = r.readLine();
+                    if (line == null) {
+                        break;
+                    }
+                    System.out.println(line);
+                }
+                COLOREDLOG("Done", "green");
             }
-            COLOREDLOG("Done", "green");
         } catch (IOException e ){
             COLOREDLOG("FAILED", "red");
             e.printStackTrace();
