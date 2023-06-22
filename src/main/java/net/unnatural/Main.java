@@ -91,9 +91,8 @@ public class Main {
                     Config.MainClassfile = Config.MainClass + ".java";
                 } else if (entry.getKey().equals("deftask")){
                     runtask((String) entry.getKey());
-                } else {
-                    //what
                 }
+
             }
             reader.close();      
         } catch (NullPointerException | IOException e) {
@@ -124,8 +123,9 @@ public class Main {
     public static void compile(String file) {
         try {
             System.out.println("Trying to compile");
+            ProcessBuilder builder;
             if (Config.projectnameingroupid != null) {
-                ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + Config.projectnameingroupid + "/" + file);
+                builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + Config.projectnameingroupid + "/" + file);
 
                 builder.redirectErrorStream(true);
                 Process p;
@@ -139,9 +139,8 @@ public class Main {
                     }
                     System.out.println(line);
                 }
-                COLOREDLOG("Done", "green");
             } else {
-                ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
+                builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
 
                 builder.redirectErrorStream(true);
                 Process p;
@@ -155,8 +154,8 @@ public class Main {
                     }
                     System.out.println(line);
                 }
-                COLOREDLOG("Done", "green");
             }
+            COLOREDLOG("Done", "green");
         } catch (IOException e ){
             COLOREDLOG("FAILED", "red");
             e.printStackTrace();
@@ -229,9 +228,14 @@ public class Main {
         runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
     }
 
+    @SuppressWarnings({"UnnecessaryCallToStringValueOf", "ConcatenationWithEmptyString"})
     public static String getversion() {
-        String ver = String.valueOf(version[0] + "" + version[1]);
-        return ver;
+        //the empty string is needed
+        //to check for
+        //the joined version              this lil guy
+        //string, not the sum                   |
+        //02, not 2                            \/
+        return String.valueOf(version[0] + "" + version[1]);
     }
 
     public static boolean checkforupdate() throws IOException, NullPointerException {
@@ -240,10 +244,6 @@ public class Main {
         String i;
         i = read.readLine();
         read.close();
-        if (!i.equals(getversion())) {
-            return true;
-        } else {
-            return false;
-        }
+        return !i.equals(getversion());
     }
 }
