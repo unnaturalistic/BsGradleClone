@@ -14,6 +14,7 @@ gay sex
 
 package net.unnatural;
 
+import net.unnatural.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,7 +40,7 @@ public class Main {
             } else {
                 System.out.println("Running latest!");
             }
-            getjsondata();
+            TaskManager.getjsondata();
             creategroupID();
             System.out.println("Checking for commands");
             //here's how tasks work
@@ -52,71 +53,10 @@ public class Main {
             } else if (args[0].equals("run")) {
                 run(Config.MainClass);
             } else {
-                runtask(args[0]);
+                TaskManager.runtask(args[0]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
-        }
-    }
-
-    public static void getjsondata() {
-        /*
-        the json file should look like this:
-        {
-        "net": "net",
-        "name": "example",
-        "projectname": "projectname",
-        "projectnameingroupid": "projectnameingroupid"
-         }
-         projectnameingroupid is pretty broken rn so dont even use it
-         */
-        try {
-            System.out.println("Getting JSON Data");
-            Gson gson = new Gson();
-            Path path = Paths.get("config.json");
-            Reader reader = Files.newBufferedReader(path);
-            System.out.println("config file: " + path);
-            Map<?, ?> map = gson.fromJson(reader, Map.class);
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                if (entry.getKey().equals("net")) {
-                    Config.net = (String) entry.getValue();
-                } else if (entry.getKey().equals("name")) {
-                    Config.name = (String) entry.getValue();
-                } else if (entry.getKey().equals("projectname")) {
-                    Config.projectname = (String) entry.getValue();
-                } else if (entry.getKey().equals("projectnameingroupid")) {
-                    Config.projectnameingroupid = (String) entry.getValue();
-                } else if (entry.getKey().equals("MainClass")) {
-                    Config.MainClass = (String) entry.getValue();
-                    Config.MainClassfile = Config.MainClass + ".java";
-                } else if (entry.getKey().equals("deftask")){
-                    runtask((String) entry.getKey());
-                }
-
-            }
-            reader.close();      
-        } catch (NullPointerException | IOException e) {
-            COLOREDLOG("CONFIG DOES NOT EXIST, USING DEFAULT!", "red");
-        }
-    }
-
-    public static void runtask(String taskname) {
-        try {
-            System.out.println("Getting JSON Task Data");
-            Gson gson = new Gson();
-            Path path = Paths.get("script.json");
-            Reader reader = Files.newBufferedReader(path);
-            System.out.println("script config file: " + path);
-            Map<?, ?> map = gson.fromJson(reader, Map.class);
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                if (entry.getKey().equals(taskname)) {
-                    runcmd((String) entry.getValue());
-                    break;
-                }
-            }
-            reader.close();      
-        } catch (NullPointerException | IOException e) {
-            COLOREDLOG("TASK FILE DOES NOT EXIST!", "red");
         }
     }
 
