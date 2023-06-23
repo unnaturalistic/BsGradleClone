@@ -232,9 +232,9 @@ public class Main {
     public static String getversion() {
         //the empty string is needed
         //to check for
-        //the joined version              this lil guy
-        //string, not the sum                   |
-        //02, not 2                            \/
+        //the joined version           this lil guy
+        //string, not the sum               |
+        //02, not 2                        \/
         return String.valueOf(version[0] + "" + version[1]);
     }
 
