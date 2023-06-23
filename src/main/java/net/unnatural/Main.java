@@ -14,19 +14,11 @@ gay sex
 
 package net.unnatural;
 
-import net.unnatural.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.net.URL;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.net.*;
-
-
-import com.google.gson.*;
 
 public class Main {
     public static int[] version = new int[] {0 , 2};
