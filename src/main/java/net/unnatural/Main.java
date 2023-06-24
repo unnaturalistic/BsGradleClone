@@ -1,17 +1,3 @@
-/*
- NOTES:
-System.out.println("\u001B[31mRed text");
-System.out.println("\u001B[32mGreen text");
-System.out.println("\u001B[33mYellow text");
-System.out.println("\u001B[34mBlue text");
-System.out.println("\u001B[35mPurple text");
-System.out.println("\u001B[36mCyan text");
-System.out.println("\u001B[37mWhite text");
-sex
-gex or 
-gay sex
- */
-
 package net.unnatural;
 
 import java.io.BufferedReader;
