@@ -48,7 +48,8 @@ public class Main {
                 TaskManager.runtask(args[0]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
+            System.out.println("No arguments!, clean stop");
+            System.exit(0);
         }
     }
 

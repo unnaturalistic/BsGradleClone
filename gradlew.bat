@@ -15,8 +15,6 @@
 @rem limitations under the License.
 @rem
 
-if %1 == HASH goto HASH
-
 @if "%DEBUG%"=="" @echo off
 @rem ##########################################################################
 @rem
