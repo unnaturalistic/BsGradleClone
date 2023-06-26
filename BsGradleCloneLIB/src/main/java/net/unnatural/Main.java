@@ -4,7 +4,6 @@ import net.unnatural.Events.AvailableUpdate;
 import net.unnatural.Events.MainCall;
 
 import java.net.URL;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,5 @@ public class Main {
         for (MainCall mainCall : this.MainC) {
             mainCall.MainCall(args);
         }
-
     }
 }
