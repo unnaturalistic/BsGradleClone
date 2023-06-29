@@ -178,5 +178,4 @@ public class Main {
             COLOREDLOG(entry.getKey() + " = " + entry.getValue(), "yellow");
         }
     }
-
 }
