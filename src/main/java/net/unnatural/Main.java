@@ -1,17 +1,3 @@
-/*
- NOTES:
-System.out.println("\u001B[31mRed text");
-System.out.println("\u001B[32mGreen text");
-System.out.println("\u001B[33mYellow text");
-System.out.println("\u001B[34mBlue text");
-System.out.println("\u001B[35mPurple text");
-System.out.println("\u001B[36mCyan text");
-System.out.println("\u001B[37mWhite text");
-sex
-gex or 
-gay sex
- */
-
 package net.unnatural;
 
 import java.io.BufferedReader;
@@ -46,6 +32,8 @@ public class Main {
                 compile(Config.MainClassfile);
             } else if (args[0].equals("run")) {
                 run(Config.MainClass);
+            } else if (args[0].equals("tasks")) {
+                System.out.println(Config.taskmap);
             } else {
                 TaskManager.runtask(args[0]);
             }
