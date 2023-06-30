@@ -4,7 +4,7 @@ rem Bullshit gradle clone launcher, 2023 version 1
 rem ----------------------------------------------
 set VERSION=02
 echo Checking for update...
-FOR /F "tokens=*" %%g IN ('curl https://raw.githubusercontent.com/unnaturalistic/BsGradleClone/main/version.txt > nul') do (SET UPDATE=%%g)
+FOR /F "tokens=*" %%g IN ('curl https://raw.githubusercontent.com/unnaturalistic/BsGradleClone/main/version.txt > nul ') do (SET UPDATE=%%g)
 IF %VERSION%==%UPDATE% (
 echo Ver is latest
 goto MainStart
