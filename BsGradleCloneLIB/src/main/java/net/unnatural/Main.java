@@ -18,6 +18,10 @@ public class Main {
 
     }
 
+    /**
+     * @param AU
+     * Update event, if you want ttou jiusfhsiuhfdsa
+     */
     public void AddToUpdateEvent(AvailableUpdate AU) {
         updateev.add(AU);
     }
@@ -53,4 +57,5 @@ public class Main {
             beforecompile.BeforeCompile(GroupID, MainClass, MainClassFile);
         }
     }
+    //TODO: Add Task Events and Register it in the main app, and make it available in the Library
 }
