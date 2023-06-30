@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.Map;
+
 
 public class Main {
     public static int[] version = new int[] {0 , 2};
@@ -27,14 +29,17 @@ public class Main {
             //if the cli arguments are not integrated in the code base
             //it will call the script.json reader to execute the one which is named the same as the cli argument
             if (args[0].equals("compile")) {
-                    compile(Config.MainClassfile);
+                compile(Config.MainClassfile);
             } else if (args[0].equals("run")) {
                 run(Config.MainClass);
+            } else if (args[0].equals("tasks")) {
+                System.out.println(Config.taskmap);
             } else {
                 TaskManager.runtask(args[0]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Arguments array index is out of bounds which basically means you didn't give it any arguments, its not an error");
+            System.out.println("No arguments!, clean stop");
+            System.exit(0);
         }
     }
 
@@ -115,6 +120,9 @@ public class Main {
             case "green":
                 System.out.println("\u001B[32m" + log + "\u001B[37m");
                 break;
+            case "yellow":
+                System.out.println("\u001B[33m" + log + "\u001B[37m");
+                break;
         }
     }
 
@@ -163,5 +171,11 @@ public class Main {
         i = read.readLine();
         read.close();
         return !i.equals(getversion());
+    }
+
+    public static void TaskList() {
+        for (Map.Entry<String, String> entry : Config.taskmap.entrySet()) {
+            COLOREDLOG(entry.getKey() + " = " + entry.getValue(), "yellow");
+        }
     }
 }

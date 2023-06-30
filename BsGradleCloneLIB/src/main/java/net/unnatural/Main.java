@@ -5,7 +5,6 @@ import net.unnatural.Events.MainCall;
 import net.unnatural.Events.MsgEvent;
 
 import java.net.URL;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class Main {
         for (MainCall mainCall : this.MainC) {
             mainCall.MainCall(args);
         }
-
     }
     public void AddMsgEvent(MsgEvent ME) {
         MsgE.add(ME);

@@ -44,6 +44,7 @@ public class TaskManager {
                         Config.MainClass = (String) entry.getValue();
                     } else if (entry.getKey().equals("deftask")){
                         runtask((String) entry.getKey());
+                        Config.ConfigTasks(new String[] {(String) entry.getValue()});
                     }
             }
             reader.close();      
