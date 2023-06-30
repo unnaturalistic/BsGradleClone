@@ -9,17 +9,17 @@ import java.util.Map;
 
 
 public class Main {
-    public static int[] version = new int[] {0 , 2};
+    //public static int[] version = new int[] {0 , 2};
 
     public static void main(String[] args) throws IOException, NullPointerException {
         try {
             System.out.println("Starting BULLSHIT GRADLE CLONE!");
-            boolean update = checkforupdate();
-            if (update) {
-                System.out.println("Update available");
-            } else {
-                System.out.println("Running latest!");
-            }
+            //boolean update = checkforupdate();
+            //if (update) {
+                //System.out.println("Update available");
+            //} else {
+                //System.out.println("Running latest!");
+            //}
             TaskManager.getjsondata();
             creategroupID();
             System.out.println("Checking for commands");
@@ -155,23 +155,23 @@ public class Main {
     }
 
     @SuppressWarnings({"UnnecessaryCallToStringValueOf", "ConcatenationWithEmptyString"})
-    public static String getversion() {
+    //public static String getversion() {
         //the empty string is needed
         //to check for
         //the joined version           this lil guy
         //string, not the sum               |
         //02, not 2                        \/
-        return String.valueOf(version[0] + "" + version[1]);
-    }
+        //return String.valueOf(version[0] + "" + version[1]);
+    //}
 
-    public static boolean checkforupdate() throws IOException, NullPointerException {
-        URL url = new URL("https://raw.githubusercontent.com/unnaturalistic/BsGradleClone/main/version.txt");
-        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
-        String i;
-        i = read.readLine();
-        read.close();
-        return !i.equals(getversion());
-    }
+    //public static boolean checkforupdate() throws IOException, NullPointerException {
+        //URL url = new URL("https://raw.githubusercontent.com/unnaturalistic/BsGradleClone/main/version.txt");
+        //BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+        //String i;
+        //i = read.readLine();
+        //read.close();
+        //return !i.equals(getversion());
+    //}
 
     public static void TaskList() {
         for (Map.Entry<String, String> entry : Config.taskmap.entrySet()) {
