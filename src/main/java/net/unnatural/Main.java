@@ -38,7 +38,7 @@ public class Main {
                 TaskManager.runtask(args[0]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("No arguments!, clean stop");
+            System.out.println("No arguments!");
             System.exit(0);
         }
     }
@@ -48,7 +48,7 @@ public class Main {
             System.out.println("Trying to compile");
             ProcessBuilder builder;
             if (Config.projectnameingroupid != null) {
-                builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + Config.projectnameingroupid + "/" + file);
+                builder = new ProcessBuilder("cmd.exe", "/c", "javac " + "-sourcepath " + Config.net + "/" + Config.name + "/" + Config.projectnameingroupid + "/" + file + " -d ./build/");
 
                 builder.redirectErrorStream(true);
                 Process p;
@@ -63,7 +63,7 @@ public class Main {
                     System.out.println(line);
                 }
             } else {
-                builder = new ProcessBuilder("cmd.exe", "/c", "javac " + Config.net + "/" + Config.name + "/" + file);
+                builder = new ProcessBuilder("cmd.exe", "/c", "cd " + Config.net + "/" + Config.name + "/" + "&&" + "javac " + file + " -d ../../build/ ");
 
                 builder.redirectErrorStream(true);
                 Process p;
@@ -154,7 +154,7 @@ public class Main {
         runcmd("mkdir " + Config.net + " && cd " + Config.net + " && mkdir " + Config.name + " && cd " + Config.name);
     }
 
-    @SuppressWarnings({"UnnecessaryCallToStringValueOf", "ConcatenationWithEmptyString"})
+    //@SuppressWarnings({"UnnecessaryCallToStringValueOf", "ConcatenationWithEmptyString"})
     //public static String getversion() {
         //the empty string is needed
         //to check for

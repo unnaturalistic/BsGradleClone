@@ -20,7 +20,7 @@ public class Main {
 
     /**
      * @param AU
-     * Update event, if you want ttou jiusfhsiuhfdsa
+     * Update event, uhhhhh i dont even remember
      */
     public void AddToUpdateEvent(AvailableUpdate AU) {
         updateev.add(AU);

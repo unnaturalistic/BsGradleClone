@@ -33,5 +33,4 @@ test {
 
 task getmeta {
     System.out.println("Version: " + version)
-    System.out.println("Codename: jamieplayzmc")
 }

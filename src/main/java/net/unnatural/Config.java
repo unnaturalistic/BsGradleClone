@@ -9,7 +9,7 @@ public class Config {
     public static String projectname = "app";
     public static String projectnameingroupid;
     public static String MainClass = "Main";
-    public static String MainClassfile;
+    public static String MainClassfile = MainClass + ".java";
     static Map<String, String> map = new HashMap<String, String>();
     static Map<String, String> taskmap = new HashMap<String, String>();
 

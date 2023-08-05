@@ -1,6 +1,3 @@
 {
-    "net": "net",
-    "name": "example",
-    "projectname": "projectname",
-    "projectnameingroupid": "projectnameingroupid"
+    "MainClass": "HelloWorld"
 }

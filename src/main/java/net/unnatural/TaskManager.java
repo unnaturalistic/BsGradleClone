@@ -12,7 +12,6 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 public class TaskManager {
-    //TODO: move task related methods to here
     public static void getjsondata() {
             /*
             the json file should look like this:
@@ -42,6 +41,7 @@ public class TaskManager {
                         Config.projectnameingroupid = (String) entry.getValue();
                     } else if (entry.getKey().equals("MainClass")) {
                         Config.MainClass = (String) entry.getValue();
+                        Config.MainClassfile = Config.MainClass + ".java";
                     } else if (entry.getKey().equals("deftask")){
                         runtask((String) entry.getKey());
                         Config.ConfigTasks(new String[] {(String) entry.getValue()});
@@ -51,6 +51,11 @@ public class TaskManager {
         } catch (NullPointerException | IOException e) {
             COLOREDLOG("CONFIG DOES NOT EXIST, USING DEFAULT!", "red");
         }
+        System.out.println("net: " + Config.net);
+        System.out.println("name: " + Config.name);
+        System.out.println("projectname: " + Config.projectname);
+        System.out.println("projectnameingroupid: " + Config.projectnameingroupid);
+        System.out.println("MainClass: " + Config.MainClass);
     }
 
         public static void runtask(String taskname) {
